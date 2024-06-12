@@ -14,27 +14,9 @@
             margin: 0;
             background-color: #000; /* Черный фон */
             color: #0ff; /* Синий неоновый цвет */
-            cursor: none; /* Скрыть курсор */
         }
         .clock-container {
             text-align: center;
-        }
-        .time.glitch, .region.glitch, .date.glitch {
-            position: relative;
-        }
-        .time.glitch::before, .region.glitch::before, .date.glitch::before {
-            content: attr(data-text);
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            color: #f00; /* Цвет помех */
-        }
-        .time.glitch::after, .region.glitch::after, .date.glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            color: #0f0; /* Другой цвет помех */
         }
         .time {
             font-size: 4em;
@@ -55,36 +37,12 @@
 <body>
 
 <div class="clock-container">
-    <div class="region glitch" id="region"></div>
-    <div class="time glitch" id="time"></div>
-    <div class="date glitch" id="date"></div>
+    <div class="region" id="region"></div>
+    <div class="time" id="time"></div>
+    <div class="date" id="date"></div>
 </div>
 
 <script>
-    document.getElementById('time').addEventListener('mouseenter', function() {
-        this.classList.add('glitch');
-    });
-
-    document.getElementById('time').addEventListener('mouseleave', function() {
-        this.classList.remove('glitch');
-    });
-
-    document.getElementById('region').addEventListener('mouseenter', function() {
-        this.classList.add('glitch');
-    });
-
-    document.getElementById('region').addEventListener('mouseleave', function() {
-        this.classList.remove('glitch');
-    });
-
-    document.getElementById('date').addEventListener('mouseenter', function() {
-        this.classList.add('glitch');
-    });
-
-    document.getElementById('date').addEventListener('mouseleave', function() {
-        this.classList.remove('glitch');
-    });
-
     function updateClock() {
         var now = new Date();
         
