@@ -3,6 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cursor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            cursor: none;
+            overflow: hidden; /* Чтобы курсор не выходил за пределы окна */
+        }
+
+        #custom-cursor {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #00f;
+            position: absolute;
+            pointer-events: none; /* Чтобы курсор не взаимодействовал с элементами на странице */
+            z-index: 9999; /* Убедимся, что курсор будет поверх других элементов */
+            transition: transform 0.1s ease; /* Добавим плавное изменение положения курсора */
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor"></div>
+    
+   <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Часики</title>
     <style>
         body {
@@ -114,5 +142,21 @@
     updateClock(); // Initial call to display the time immediately
 </script>
 
+</body>
+</html>
+
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var cursor = document.getElementById("custom-cursor");
+
+            document.addEventListener("mousemove", function(e) {
+                var x = e.clientX;
+                var y = e.clientY;
+
+                cursor.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
 </body>
 </html>
