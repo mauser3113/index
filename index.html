@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Красивые часы с синим неоном</title>
+    <title>Часики</title>
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
@@ -12,8 +12,8 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #000; /* Черный фон */
-            color: #0ff; /* Синий неоновый цвет */
+            background-color: #000; //
+            color: #0ff; //
         }
         .clock-container {
             text-align: center;
@@ -46,7 +46,7 @@
     function updateClock() {
         var now = new Date();
         
-        // Форматирование времени
+        // 
         var hours = now.getHours();
         var minutes = now.getMinutes();
         var seconds = now.getSeconds();
@@ -55,21 +55,21 @@
         seconds = seconds < 10 ? '0' + seconds : seconds;
         var timeString = hours + ':' + minutes + ':' + seconds;
 
-        // Форматирование даты
+        // 
         var options = { year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short' };
         var dateString = now.toLocaleDateString('en-GB', options).replace(',', '').toUpperCase();
 
-        // Получение региона
+        // 
         var regionString = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-        // Обновление содержимого элементов
+        //
         document.getElementById('time').innerHTML = timeString;
         document.getElementById('date').innerHTML = dateString;
         document.getElementById('region').innerHTML = regionString;
     }
 
     setInterval(updateClock, 1000);
-    updateClock(); // Initial call to display the time immediately
+    updateClock(); // 
 </script>
 
 </body>
