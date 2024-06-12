@@ -1,77 +1,86 @@
-
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Часики</title>
+    <title>Digital Clock with Vue.js</title>
     <style>
-        body {
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #000; /* Черный фон */
-            color: #0ff; /* Синий неоновый цвет */
+        html,body {
+            height: 100%;
         }
-        .clock-container {
+        body {
+            background: #0f3854;
+            background: radial-gradient(ellipse at center,  #0a2e38  0%, #000000 70%);
+            background-size: 100%;
+            font-family: 'Share Tech Mono', monospace;
+            color: #daf6ff;
             text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        p {
+            margin: 0;
+            padding: 0;
+        }
+        #clock {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(10, 175, 230, 0);
         }
         .time {
-            font-size: 4em;
-            margin: 10px 0;
-            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff;
-        }
-        .region {
-            font-size: 1.5em;
-            margin: 10px 0;
-            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+            letter-spacing: 0.05em;
+            font-size: 80px;
+            padding: 5px 0;
         }
         .date {
-            font-size: 1.2em;
-            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+            letter-spacing: 0.1em;
+            font-size: 24px;
+        }
+        .text {
+            letter-spacing: 0.1em;
+            font-size: 12px;
+            padding: 20px 0 0;
         }
     </style>
 </head>
 <body>
+    <div id="clock">
+        <p class="date">{{ date }}</p>
+        <p class="time">{{ time }}</p>
+        <p class="text">DIGITAL CLOCK with Vue.js</p>
+    </div>
 
-<div class="clock-container">
-    <div class="region" id="region"></div>
-    <div class="time" id="time"></div>
-    <div class="date" id="date"></div>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var clock = new Vue({
+            el: '#clock',
+            data: {
+                time: '',
+                date: ''
+            },
+            mounted() {
+                setInterval(this.updateTime, 1000);
+            },
+            methods: {
+                updateTime() {
+                    var cd = new Date();
+                    this.time = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2);
+                    this.date = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth()+1, 2) + '-' + zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()];
+                }
+            }
+        });
 
-<script>
-    function updateClock() {
-        var now = new Date();
-        
-        // Форматирование времени
-        var hours = now.getHours();
-        var minutes = now.getMinutes();
-        var seconds = now.getSeconds();
-        hours = hours < 10 ? '0' + hours : hours;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-        var timeString = hours + ':' + minutes + ':' + seconds;
+        var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-        // Форматирование даты
-        var options = { year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short' };
-        var dateString = now.toLocaleDateString('en-GB', options).replace(',', '').toUpperCase();
-
-        // Получение региона
-        var regionString = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-        // Обновление содержимого элементов
-        document.getElementById('time').innerHTML = timeString;
-        document.getElementById('date').innerHTML = dateString;
-        document.getElementById('region').innerHTML = regionString;
-    }
-
-    setInterval(updateClock, 1000);
-    updateClock(); // Initial call to display the time immediately
-</script>
-
+        function zeroPadding(num, digit) {
+            var zero = '';
+            for(var i = 0; i < digit; i++) {
+                zero += '0';
+            }
+            return (zero + num).slice(-digit);
+        }
+    </script>
 </body>
 </html>
